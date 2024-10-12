@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Cloning the repository
+                git 'https://github.com/2342-riddhi/jenkins.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Compile the code
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Run Unit Tests') {
+            steps {
+                // Run unit tests
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    // Publish test results (JUnit reports)
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Build and tests succeeded!'
+        }
+        failure {
+            echo 'Build or tests failed!'
+        }
+    }
+}
