@@ -13,7 +13,7 @@ public class PalindromeTest {
         assertTrue(palindrome.isPalindrome(454));
 
         // Test case 3: Single-digit palindrome
-        assertTrue(palindrome.isPalindrome(75));
+        assertTrue(palindrome.isPalindrome(7));
 
        
     }
